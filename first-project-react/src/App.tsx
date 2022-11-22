@@ -8,7 +8,7 @@ const App = () => {
     loadMovies();
   }, []);
 
-  const loadMovies = () => {
+  /*const loadMovies = () => {
     fetch('https://api.b7web.com.br/cinema/')
       .then((response) => {
         return response.json();
@@ -16,21 +16,27 @@ const App = () => {
       .then((json) => {
         setMovies(json);
       });
+  }*/
+
+  const loadMovies = async () => {
+    let response = await fetch('https://api.b7web.com.br/cinema/');
+    let json = await response.json();
+    setMovies(json);
   }
 
   return (
     <div>
       Total de filmes: {movies.length}
 
-    <div className='grid grid-cols-6 gap-3'>
-      {movies.map((item, index) => (
-        <div key={index}>
-          <img src={item.avatar} alt="Filme" className='w-32 block' />
-          {item.titulo}
-        </div>
-      ))}
+      <div className='grid grid-cols-6 gap-3'>
+        {movies.map((item, index) => (
+          <div key={index}>
+            <img src={item.avatar} alt="Filme" className='w-32 block' />
+            {item.titulo}
+          </div>
+        ))}
+      </div>
     </div>
-    </div>    
   );
 }
 
